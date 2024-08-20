@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_27_09)7a@8%i7s3)#yygih!=0anjtn0z=x-&s9jqqa+ppyvya'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*", 'localhost', '127.0.0.1']
 
@@ -35,12 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #
-    'ckeditor',
-    'ckeditor_uploader',
 
     #     Local
-    'bot',
+    'bot'
 ]
 
 MIDDLEWARE = [
@@ -71,15 +68,6 @@ TEMPLATES = [
     },
 ]
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 150,
-        'width': 800,
-        'allowedContent': 'b i u s a code'
-    },
-}
-
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
@@ -88,6 +76,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
+
         "NAME": os.environ.get("POSTGRES_DB"),
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
@@ -132,7 +121,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -140,9 +129,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CELERY
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_RESULT_BACKEND = 'rpc://'
-
-CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
