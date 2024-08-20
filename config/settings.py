@@ -100,7 +100,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": 'stream_bot_db',
-        "USER": 'postgres',
+        "USER": 'bloguser',
         "PASSWORD": '@1-dasturchi@',
         "HOST": '127.0.0.1',  # 192.168.100.18
         "PORT": 5432,
