@@ -85,28 +85,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.environ.get("POSTGRES_DB"),
-#         "USER": os.environ.get("POSTGRES_USER"),
-#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-#         "HOST": os.environ.get("POSTGRES_HOST"),  # 192.168.100.18
-#         "PORT": os.environ.get("POSTGRES_PORT"),
-#
-#     }
-# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": 'stream_bot_db',
-        "USER": 'bloguser',
-        "PASSWORD": '@1-dasturchi@',
-        "HOST": '127.0.0.1',  # 192.168.100.18
+        "NAME": os.environ.get("POSTGRES_DB", 'postgres'),
+        "USER": os.environ.get("POSTGRES_USER", 'postgres'),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", 'postgres'),
+        "HOST": os.environ.get("POSTGRES_HOST", 'postgres'),  # 192.168.100.18
         "PORT": 5432,
 
     }
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": 'stream_bot_db',
+#         "USER": 'bloguser',
+#         "PASSWORD": '@1-dasturchi@',
+#         "HOST": '127.0.0.1',  # 192.168.100.18
+#         "PORT": 5432,
+#
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
