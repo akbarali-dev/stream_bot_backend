@@ -102,7 +102,8 @@ def get_file_id(request, url):
     bot_token = env.str("BOT_TOKEN")
     chat_id = '1474104201'
 
-    nn = "/home/akbarali/programming/python/personalProject/stream_bot_backend"
+    nn = "/root/stream_bot_backend"
+    # nn = "/home/akbarali/programming/python/personalProject/stream_bot_backend"
     image_path = nn + url
     url = f'https://api.telegram.org/bot{bot_token}/sendPhoto'
     try:
