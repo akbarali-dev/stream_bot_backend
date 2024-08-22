@@ -24,9 +24,9 @@ class SportsTypeAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-        if obj.image and not obj.file_id:
-            obj.file_id = get_file_id(request, obj.image.url)
-            obj.save(update_fields=['file_id'])
+        # if obj.image and not obj.file_id:
+        obj.file_id = get_file_id(request, obj.image.url)
+        obj.save(update_fields=['file_id'])
 
 
 @admin.register(Competition)
@@ -46,9 +46,9 @@ class CompetitionAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.description = self.remove_tags(obj.description)
         super().save_model(request, obj, form, change)
-        if obj.image and not obj.file_id:
-            obj.file_id = get_file_id(request, obj.image.url)
-            obj.save(update_fields=['file_id'])
+        # if obj.image and not obj.file_id:
+        obj.file_id = get_file_id(request, obj.image.url)
+        obj.save(update_fields=['file_id'])
             # env = Env()
             # env.read_env()
             # bot_token = env.str("BOT_TOKEN")
