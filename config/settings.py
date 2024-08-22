@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-_27_09)7a@8%i7s3)#yygih!=0anjtn0z=x-&s9jqqa+ppyvya
 DEBUG = True
 
 ALLOWED_HOSTS = ['stream.javthon.uz']
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -85,29 +86,29 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB", 'postgres'),
-        "USER": os.environ.get("POSTGRES_USER", 'postgres'),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", 'postgres'),
-        "HOST": os.environ.get("POSTGRES_HOST", 'postgres'),  # 192.168.100.18
-        "PORT": 5432,
-
-    }
-}
-# test
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": 'stream_bot_db',
-#         "USER": 'bloguser',
-#         "PASSWORD": '@1-dasturchi@',
-#         "HOST": '127.0.0.1',  # 192.168.100.18
+#         "NAME": os.environ.get("POSTGRES_DB", 'postgres'),
+#         "USER": os.environ.get("POSTGRES_USER", 'postgres'),
+#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", 'postgres'),
+#         "HOST": os.environ.get("POSTGRES_HOST", 'postgres'),  # 192.168.100.18
 #         "PORT": 5432,
 #
 #     }
 # }
+# test
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": 'stream_bot_db',
+        "USER": 'postgres',
+        "PASSWORD": 'root123',
+        "HOST": '127.0.0.1',  # 192.168.100.18
+        "PORT": 5432,
+
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
