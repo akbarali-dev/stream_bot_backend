@@ -6,7 +6,8 @@ from django.utils.html import format_html
 from environs import Env
 from django.contrib import messages
 import requests
-
+from copy import deepcopy
+from config.settings import DEBUG
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -44,12 +45,9 @@ class CompetitionAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def save_model(self, request, obj, form, change):
-        old_image = obj.image
+        old_image = deepcopy(obj.image)
         obj.description = self.remove_tags(obj.description)
-        print("obj")
-        print(obj.image)
         super().save_model(request, obj, form, change)
-        # if obj.image and not obj.file_id:
         if old_image != obj.image:
             obj.file_id = get_file_id(request, obj.image.url)
             obj.save(update_fields=['file_id'])
@@ -105,9 +103,10 @@ def get_file_id(request, url):
     env.read_env()
     bot_token = env.str("BOT_TOKEN")
     chat_id = '1474104201'
-
-    nn = "/root/stream_bot_backend"
-    # nn = "/home/akbarali/programming/python/personalProject/stream_bot_backend"
+    if DEBUG:
+        nn = "/home/akbarali/programming/python/personalProject/stream_bot_backend"
+    else:
+        nn = "/root/stream_bot_backend"
     image_path = nn + url
     url = f'https://api.telegram.org/bot{bot_token}/sendPhoto'
     try:
