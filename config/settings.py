@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_27_09)7a@8%i7s3)#yygih!=0anjtn0z=x-&s9jqqa+ppyvya'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['stream.javthon.uz']
 # ALLOWED_HOSTS = []
