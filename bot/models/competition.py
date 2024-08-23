@@ -1,13 +1,16 @@
+import os
+import requests
+from environs import Env
+
 from django import forms
 from django.utils.html import mark_safe
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .base_model import BaseModel, PathAndRename
+
 from django.db import models
+from .base_model import BaseModel, PathAndRename
 from .sport_type import SportsType
 from .channel import Channel
-import requests
-from environs import Env
 from ckeditor.fields import RichTextField
 
 # from celery import shared_task
@@ -30,8 +33,6 @@ class Competition(BaseModel):
     send_bot = models.BooleanField(default=False)
     send_channel = models.BooleanField(default=False)
 
-
-    # Ushbu maydon faqat vaqtincha ma'lumot saqlash uchun
     _temp_field = None
 
     def set_temp_field(self, value):
@@ -39,6 +40,12 @@ class Competition(BaseModel):
 
     def get_temp_field(self):
         return self._temp_field
+
+    def delete(self, *args, **kwargs):
+        if self.image:
+            if os.path.isfile(self.image.path):
+                os.remove(self.image.path)
+        super().delete(*args, **kwargs)
 
     # Bu maydon admin panelda ishlatiladi, lekin ma'lumotlar bazasiga saqlanmaydi
     temp_field = property(get_temp_field, set_temp_field)

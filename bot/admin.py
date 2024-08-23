@@ -1,3 +1,5 @@
+from dataclasses import field
+
 from bs4 import BeautifulSoup
 
 from .models import *
@@ -30,14 +32,36 @@ class SportsTypeAdmin(admin.ModelAdmin):
         obj.save(update_fields=['file_id'])
 
 
+@admin.action(description="Deactivate selected competitions")
+def make_deactivate(modeladmin, request, queryset):
+    queryset.update(active=False)
+
+@admin.action(description="Activate selected competitions")
+def make_activate(modeladmin, request, queryset):
+    queryset.update(active=True)
+
 @admin.register(Competition)
 class CompetitionAdmin(admin.ModelAdmin):
     def image_tag(self, obj):
         return format_html('<img src="{}" style="max-width:200px; max-height:200px"/>'.format(obj.image.url))
 
+    # exclude = ('file_id',)
     list_display = ('name', 'start_date', 'active', 'image_tag')
     search_fields = ('name',)
     readonly_fields = ['img_preview', ]
+    actions =[make_deactivate, make_activate]
+    list_per_page = 10
+
+    def get_fields(self, request, obj=None):
+        fields = super().get_fields(request, obj)
+
+        if obj and obj.file_id:
+            return fields
+        else:
+            fields = list(fields)
+            if 'file_id' in fields:
+                fields.remove('file_id')
+            return fields
 
     def update_model(self, request, obj, form, change):
         obj.description = self.remove_tags(obj.description)
@@ -103,10 +127,10 @@ def get_file_id(request, url):
     env.read_env()
     bot_token = env.str("BOT_TOKEN")
     chat_id = '1474104201'
-    # if DEBUG:
-    #     nn = "/home/akbarali/programming/python/personalProject/stream_bot_backend"
-    # else:
-    nn = "/root/stream_bot_backend"
+    if DEBUG:
+        nn = "/home/akbarali/programming/python/personalProject/stream_bot_backend"
+    else:
+        nn = "/root/stream_bot_backend"
     image_path = nn + url
     url = f'https://api.telegram.org/bot{bot_token}/sendPhoto'
     try:
