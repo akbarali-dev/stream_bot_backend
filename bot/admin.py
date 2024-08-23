@@ -1,5 +1,3 @@
-from dataclasses import field
-
 from bs4 import BeautifulSoup
 
 from .models import *
@@ -51,6 +49,8 @@ class CompetitionAdmin(admin.ModelAdmin):
     readonly_fields = ['img_preview', ]
     actions =[make_deactivate, make_activate]
     list_per_page = 10
+    ordering = ['-created_at']
+    list_filter = ('active',)
 
     def get_fields(self, request, obj=None):
         fields = super().get_fields(request, obj)
